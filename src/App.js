@@ -1,23 +1,34 @@
-import logo from './logo.svg';
+import React, { useState } from "react";
+import {Button} from '@material-ui/core';
 import './App.css';
 
+
 function App() {
+  const [todos, setTodos] = useState([])
+  const [input, setInput] = useState('')
+
+  function addTodo(event){
+    setTodos([...todos, input])
+
+    event.preventDefault();
+    setInput('')
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>React Todo App With Firebase!</h1>
+      <form>
+        <input value={input} onChange={event => setInput(event.target.value)}/>
+        {/* <button type="submit" onClick={addTodo}>Add Todo</button> */}
+        <Button type="submit" onClick={addTodo} color="primary">
+            Primary
+        </Button>
+      </form>
+      <ul>
+        {todos.map(todo => {
+          return <li>{todo}</li>
+        })}
+      </ul>
     </div>
   );
 }
